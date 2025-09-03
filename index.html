@@ -38,6 +38,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 </style>
 
+<!-- NEW SCRIPT for dataLayer push -->
+<script>
+  // Make sure dataLayer exists
+  window.dataLayer = window.dataLayer || [];
+
+  function trackButtonClick() {
+    dataLayer.push({
+      'event': 'button_click',
+      'button_id': 'myButton',
+      'button_text': 'Click Me'
+    });
+    alert("Button clicked! dataLayer push sent ✅");
+  }
+</script>
+
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -48,8 +63,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h1>This writes here</h1>
   <p>Welcome to my dummy site for testing Google Analytics.</p>
 
-  <!-- New button -->
-  <button class="my-button" onclick="alert('You clicked the button!')">
+  <!-- Updated button -->
+  <button class="my-button" id="myButton" onclick="trackButtonClick()">
     Click Me
   </button>
 

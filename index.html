@@ -36,6 +36,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .my-button:hover {
     background-color: #45a049; /* Darker green on hover */
   }
+
+  form {
+    max-width: 400px;
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button[type="submit"] {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #1976D2;
+  }
 </style>
 
 <!-- NEW SCRIPT for dataLayer push -->
@@ -50,6 +80,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'button_text': 'Click Me'
     });
     alert("Button clicked! dataLayer push sent ✅");
+  }
+
+  function trackFormSubmit(event) {
+    event.preventDefault(); // stop default page refresh
+    dataLayer.push({
+      'event': 'form_submit',
+      'form_id': 'contactForm'
+    });
+    alert("Form submitted! dataLayer push sent ✅");
+    // For now it just tracks; you can later send data to Firebase, GA4, etc.
   }
 </script>
 
@@ -67,6 +107,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <button class="my-button" id="myButton" onclick="trackButtonClick()">
     Click Me
   </button>
+
+  <!-- New form -->
+  <form id="contactForm" onsubmit="trackFormSubmit(event)">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" placeholder="Your name" required><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" placeholder="Your email" required><br>
+
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" rows="4" placeholder="Your message" required></textarea><br>
+
+    <button type="submit">Submit</button>
+  </form>
 
   <footer>
     <p>This is the end</p>

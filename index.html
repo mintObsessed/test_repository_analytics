@@ -43,14 +43,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
+    background: #fafafa;
   }
 
-  input, textarea {
-    width: 100%;
-    padding: 8px;
-    margin: 6px 0 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  select, input[type="radio"], input[type="checkbox"] {
+    margin-top: 6px;
+    margin-bottom: 12px;
   }
 
   button[type="submit"] {
@@ -83,13 +87,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   function trackFormSubmit(event) {
-    event.preventDefault(); // stop default page refresh
+    event.preventDefault(); // stop default refresh
     dataLayer.push({
       'event': 'form_submit',
-      'form_id': 'contactForm'
+      'form_id': 'optionsForm'
     });
     alert("Form submitted! dataLayer push sent ✅");
-    // For now it just tracks; you can later send data to Firebase, GA4, etc.
   }
 </script>
 
@@ -108,16 +111,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     Click Me
   </button>
 
-  <!-- New form -->
-  <form id="contactForm" onsubmit="trackFormSubmit(event)">
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name" placeholder="Your name" required><br>
+  <!-- New multiple-choice form -->
+  <form id="optionsForm" onsubmit="trackFormSubmit(event)">
+    <label for="color">Choose your favorite color:</label>
+    <select id="color" name="color" required>
+      <option value="">-- Select an option --</option>
+      <option value="red">Red</option>
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+    </select>
 
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" placeholder="Your email" required><br>
+    <label>Pick your preferred device:</label>
+    <input type="radio" id="desktop" name="device" value="desktop" required>
+    <label for="desktop">Desktop</label><br>
+    <input type="radio" id="mobile" name="device" value="mobile">
+    <label for="mobile">Mobile</label><br>
+    <input type="radio" id="tablet" name="device" value="tablet">
+    <label for="tablet">Tablet</label>
 
-    <label for="message">Message:</label><br>
-    <textarea id="message" name="message" rows="4" placeholder="Your message" required></textarea><br>
+    <label>Select your interests:</label>
+    <input type="checkbox" id="music" name="interest" value="music">
+    <label for="music">Music</label><br>
+    <input type="checkbox" id="sports" name="interest" value="sports">
+    <label for="sports">Sports</label><br>
+    <input type="checkbox" id="tech" name="interest" value="tech">
+    <label for="tech">Tech</label>
 
     <button type="submit">Submit</button>
   </form>
